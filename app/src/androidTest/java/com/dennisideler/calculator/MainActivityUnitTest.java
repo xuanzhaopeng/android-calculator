@@ -85,20 +85,31 @@ public class MainActivityUnitTest extends ActivityUnitTestCase<MainActivity> {
                 .shouldBeClickAble();
 
         ButtonWrapper.Create((Button)activity.findViewById(R.id.buttonAdd))
-                .shouldTextEqualsTo(MainActivity.ADD)
+                .shouldTextEqualsTo("+")
                 .shouldBeClickAble();
 
         ButtonWrapper.Create((Button)activity.findViewById(R.id.buttonDiv))
-                .shouldTextEqualsTo(MainActivity.DIV)
+                .shouldTextEqualsTo("÷")
                 .shouldBeClickAble();
 
         ButtonWrapper.Create((Button)activity.findViewById(R.id.buttonSub))
-                .shouldTextEqualsTo(MainActivity.SUB)
+                .shouldTextEqualsTo("−")
                 .shouldBeClickAble();
 
         ButtonWrapper.Create((Button)activity.findViewById(R.id.buttonMul))
-                .shouldTextEqualsTo(MainActivity.MUL)
+                .shouldTextEqualsTo("✕")
                 .shouldBeClickAble();
 
+    }
+
+    @MediumTest
+    @UiThreadTest
+    public void testLifeCycle()
+    {
+        MainActivity activity = startActivity(mLaunchIntent,null, null);
+        getInstrumentation().callActivityOnStart(activity);
+        getInstrumentation().callActivityOnResume(activity);
+        getInstrumentation().callActivityOnPause(activity);
+        getInstrumentation().callActivityOnStop(activity);
     }
 }

@@ -1,16 +1,10 @@
 package com.dennisideler.calculator.utils;
 
-import android.widget.Switch;
-
-import com.dennisideler.calculator.MainActivity;
-import com.dennisideler.calculator.R;
-
 /**
  * Created by lenovo on 2015/11/10.
  */
 public class CalculatorOperation {
 
-    private Object[] mElements;
     private String mOperationString;
 
     public CalculatorOperation(String operationString)
@@ -25,19 +19,19 @@ public class CalculatorOperation {
             char c = mOperationString.charAt(i);
             if(Character.isDigit(c))
             {
-                CalculatorHelper.getInstance().number(String.valueOf(c));
+                CalculatorHelper.getInstance().enterNumber(String.valueOf(c));
             }else if(c == '/')
             {
-                CalculatorHelper.getInstance().div();
+                CalculatorHelper.getInstance().pressDiv();
             }else if(c == '*')
             {
-                CalculatorHelper.getInstance().mul();
+                CalculatorHelper.getInstance().pressMul();
             }else if(c == '+')
             {
-                CalculatorHelper.getInstance().add();
+                CalculatorHelper.getInstance().pressAdd();
             }else if(c == '-')
             {
-                CalculatorHelper.getInstance().sub();
+                CalculatorHelper.getInstance().pressSub();
 
             }else if(c == ' ')
             {
@@ -61,7 +55,5 @@ public class CalculatorOperation {
     {
         CalculatorHelper.getInstance().shouldCalculatorResultEqualsTo(expectedResult);
     }
-
-
 
 }

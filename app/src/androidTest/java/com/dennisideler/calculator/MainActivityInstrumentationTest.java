@@ -4,7 +4,6 @@ import android.content.Context;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 import android.test.suitebuilder.annotation.LargeTest;
-import android.util.Log;
 import android.view.inputmethod.InputMethodManager;
 
 import com.dennisideler.calculator.utils.CalculatorHelper;
@@ -34,39 +33,39 @@ public class MainActivityInstrumentationTest {
     public void AllOperandsShouldDisplay() {
         String expectedResult = "9876543210";
         CalculatorHelper.getInstance()
-                .number(expectedResult)
+                .enterNumber(expectedResult)
                 .shouldCalculatorTextEqualsTo(expectedResult);
     }
 
     @Test
     public void OperatorAddShouldDisplay() {
         CalculatorHelper.getInstance()
-                .number("1")
-                .add()
+                .enterNumber("1")
+                .pressAdd()
                 .shouldCalculatorTextEqualsTo("1" + MainActivity.ADD);
     }
 
     @Test
     public void OperatorSubShouldDisplay() {
         CalculatorHelper.getInstance()
-                .number("1")
-                .sub()
+                .enterNumber("1")
+                .pressSub()
                 .shouldCalculatorTextEqualsTo("1" + MainActivity.SUB);
     }
 
     @Test
     public void OperatorDivShouldDisplay() {
         CalculatorHelper.getInstance()
-                .number("1")
-                .div()
+                .enterNumber("1")
+                .pressDiv()
                 .shouldCalculatorTextEqualsTo("1" + MainActivity.DIV);
     }
 
     @Test
     public void OperatorMulShouldDisplay() {
         CalculatorHelper.getInstance()
-                .number("1")
-                .mul()
+                .enterNumber("1")
+                .pressMul()
                 .shouldCalculatorTextEqualsTo("1" + MainActivity.MUL);
     }
 
@@ -79,9 +78,9 @@ public class MainActivityInstrumentationTest {
 
     @Test
     public void OperandShouldBeRemoved() {
-        CalculatorHelper.getInstance().number("12")
-                .Delete()
-                .Delete()
+        CalculatorHelper.getInstance().enterNumber("12")
+                .pressDelete()
+                .pressDelete()
                 .shouldCalculatorTextEqualsTo("");
     }
 
@@ -89,7 +88,7 @@ public class MainActivityInstrumentationTest {
     public void ZeroAtTheBeginningOfOperandShouldNotDisplay()
     {
         CalculatorHelper.getInstance()
-                .number("03")
+                .enterNumber("03")
                 .shouldCalculatorTextEqualsTo("3");
     }
 
@@ -97,19 +96,19 @@ public class MainActivityInstrumentationTest {
     public void MultipleZeroAtTheBeginningOfOperandShouldNotDisplay()
     {
         CalculatorHelper.getInstance()
-                .number("1")
-                .mul()
-                .number("003")
+                .enterNumber("1")
+                .pressMul()
+                .enterNumber("003")
                 .shouldCalculatorTextEqualsTo("1" + MainActivity.MUL + "3");
     }
 
     @Test
     public void OperatorShouldNotDisplayedAlong(){
         CalculatorHelper.getInstance()
-                .mul()
-                .div()
-                .add()
-                .sub()
+                .pressMul()
+                .pressDiv()
+                .pressAdd()
+                .pressSub()
                 .shouldCalculatorTextEqualsTo("");
     }
 
@@ -117,10 +116,10 @@ public class MainActivityInstrumentationTest {
     public void OnlyOneOperatorShouldUsedBetweenTwoOperands()
     {
         CalculatorHelper.getInstance()
-                .number("10")
-                .mul()
-                .sub()
-                .number("2")
+                .enterNumber("10")
+                .pressMul()
+                .pressSub()
+                .enterNumber("2")
                 .shouldCalculatorTextEqualsTo("10" + MainActivity.SUB + "2")
                 .shouldCalculatorResultEqualsTo("8");
     }
@@ -130,17 +129,17 @@ public class MainActivityInstrumentationTest {
     {
         double expectedResult = ((double)(Integer.MAX_VALUE)) *((double)(Integer.MAX_VALUE));
         CalculatorHelper.getInstance()
-                .number(String.valueOf(Integer.MAX_VALUE))
-                .mul()
-                .number(String.valueOf(Integer.MAX_VALUE))
+                .enterNumber(String.valueOf(Integer.MAX_VALUE))
+                .pressMul()
+                .enterNumber(String.valueOf(Integer.MAX_VALUE))
                 .shouldCalculatorResultEqualsTo(String.format("%.0f",expectedResult));
 
         double value = 99999999999999999999999999999999999999999999999999999999.0;
         expectedResult = value * value;
         CalculatorHelper.getInstance()
-                .number(String.format("%.0f", value))
-                .mul()
-                .number(String.format("%.0f", value))
+                .enterNumber(String.format("%.0f", value))
+                .pressMul()
+                .enterNumber(String.format("%.0f", value))
                 .shouldCalculatorResultEqualsTo(String.format("%.0f", expectedResult));
     }
 
