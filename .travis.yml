@@ -1,8 +1,10 @@
 language: android
 jdk: openjdk7
+cache: false
+sudo: false
 env:
   global:
-    - ADB_INSTALL_TIMEOUT=8
+    - ADB_INSTALL_TIMEOUT=15
 android:
   components:
     - build-tools-23.0.1

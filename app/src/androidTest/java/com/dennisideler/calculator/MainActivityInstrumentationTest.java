@@ -4,6 +4,7 @@ import android.content.Context;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 import android.test.suitebuilder.annotation.LargeTest;
+import android.util.Log;
 import android.view.inputmethod.InputMethodManager;
 
 import com.dennisideler.calculator.utils.CalculatorHelper;
@@ -124,8 +125,23 @@ public class MainActivityInstrumentationTest {
                 .shouldCalculatorResultEqualsTo("8");
     }
 
+    @Test
+    public void BiggestOperandsShouldWorksCorrect()
+    {
+        double expectedResult = ((double)(Integer.MAX_VALUE)) *((double)(Integer.MAX_VALUE));
+        CalculatorHelper.getInstance()
+                .number(String.valueOf(Integer.MAX_VALUE))
+                .mul()
+                .number(String.valueOf(Integer.MAX_VALUE))
+                .shouldCalculatorResultEqualsTo(String.format("%.0f",expectedResult));
 
-
-
+        double value = 99999999999999999999999999999999999999999999999999999999.0;
+        expectedResult = value * value;
+        CalculatorHelper.getInstance()
+                .number(String.format("%.0f", value))
+                .mul()
+                .number(String.format("%.0f", value))
+                .shouldCalculatorResultEqualsTo(String.format("%.0f", expectedResult));
+    }
 
 }
