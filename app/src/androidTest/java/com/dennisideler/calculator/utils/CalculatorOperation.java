@@ -13,49 +13,47 @@ public class CalculatorOperation {
     private Object[] mElements;
     private String mOperationString;
 
-    public CalculatorOperation(Object... params) {
-        mElements = params;
+    public CalculatorOperation(String operationString)
+    {
+        mOperationString = operationString;
     }
 
-    public CalculatorOperation execute() {
-        StringBuilder expectedOperationString = new StringBuilder();
-        for (Object op : mElements) {
-            if (op instanceof CalculatorOperator) {
-                CalculatorHelper.getInstance()
-                        .operator(((CalculatorOperator) op));
-                switch (((CalculatorOperator) op).getOperator()) {
-                    case R.id.buttonAdd:
-                        expectedOperationString.append(MainActivity.ADD);
-                        break;
-                    case R.id.buttonDiv:
-                        expectedOperationString.append(MainActivity.DIV);
-                        break;
-                    case R.id.buttonMul:
-                        expectedOperationString.append(MainActivity.MUL);
-                        break;
-                    case R.id.buttonSub:
-                        expectedOperationString.append(MainActivity.SUB);
-                        break;
-                    default:
-                        break;
-                }
-            } else {
-                CalculatorHelper.getInstance()
-                        .number(op.toString());
-                expectedOperationString.append(op.toString());
+    public CalculatorOperation execute()
+    {
+        for(int i=0; i< mOperationString.length(); i++)
+        {
+            char c = mOperationString.charAt(i);
+            if(Character.isDigit(c))
+            {
+                CalculatorHelper.getInstance().number(String.valueOf(c));
+            }else if(c == '/')
+            {
+                CalculatorHelper.getInstance().div();
+            }else if(c == '*')
+            {
+                CalculatorHelper.getInstance().mul();
+            }else if(c == '+')
+            {
+                CalculatorHelper.getInstance().add();
+            }else if(c == '-')
+            {
+                CalculatorHelper.getInstance().sub();
+
+            }else if(c == ' ')
+            {
+                //do nothing
+            }
+            else
+            {
+                throw new RuntimeException("Invalid Test data");
             }
         }
-        mOperationString = expectedOperationString.toString();
         return this;
     }
 
-    public CalculatorOperation checkOperationString(String operationString)
+    public CalculatorOperation checkOperationString(String expectedOperationString)
     {
-        if(operationString != null && !operationString.isEmpty())
-        {
-            mOperationString = operationString;
-        }
-        CalculatorHelper.getInstance().shouldCalculatorTextEqualsTo(mOperationString);
+        CalculatorHelper.getInstance().shouldCalculatorTextEqualsTo(expectedOperationString);
         return this;
     }
 
