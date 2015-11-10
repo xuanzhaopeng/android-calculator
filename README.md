@@ -1,3 +1,4 @@
+[![Build Status](https://travis-ci.org/xuanzhaopeng/android-calculator.svg?branch=master)](https://travis-ci.org/xuanzhaopeng/android-calculator)
 ShakerCalculator
 ================
 A very basic calculator as my first Android app. Order of operations is left-to-right. The logic is basically string processing. You wouldn't want to use this calculator for every day use--it's not *that* bad, certainly better than many other open source Android calculators I've seen, but it won't compare to the default calculator or any on the app store.
