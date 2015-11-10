@@ -103,7 +103,7 @@ public class MainActivityInstrumentationTest {
     }
 
     @Test
-    public void OperatorShouldNotDisplayedStandalone(){
+    public void OperatorShouldNotDisplayedAlong(){
         CalculatorHelper.getInstance()
                 .mul()
                 .div()

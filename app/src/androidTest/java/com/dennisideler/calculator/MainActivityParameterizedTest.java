@@ -21,7 +21,7 @@ import java.util.Arrays;
  */
 @RunWith(Parameterized.class)
 @LargeTest
-public class CalculatorParameterizedTest {
+public class MainActivityParameterizedTest {
 
     @Rule
     public ActivityTestRule<MainActivity> mActivityRule = new ActivityTestRule<>(
@@ -30,6 +30,9 @@ public class CalculatorParameterizedTest {
     @Parameters
     public static Iterable<Object[]> data() {
         return Arrays.asList(new Object[][]{
+                {new CalculatorOperation(),"",""},
+                {new CalculatorOperation(CalculatorHelper.ADD),"",""},
+                {new CalculatorOperation(CalculatorHelper.ADD, "2", CalculatorHelper.MUL, "3"),"6","2✕3"},
                 {new CalculatorOperation("3", CalculatorHelper.ADD, "2"), "5", ""},
                 {new CalculatorOperation("0", CalculatorHelper.SUB, "3"), "-3", ""},
                 {new CalculatorOperation("10", CalculatorHelper.MUL, "3"), "30", ""},
@@ -55,7 +58,7 @@ public class CalculatorParameterizedTest {
     private final String mExpectedResult;
     private final String mOperationString;
 
-    public CalculatorParameterizedTest(CalculatorOperation operation, String expectedResult, String operationString) {
+    public MainActivityParameterizedTest(CalculatorOperation operation, String expectedResult, String operationString) {
         mOperation = operation;
         mExpectedResult = expectedResult;
         mOperationString = operationString;
