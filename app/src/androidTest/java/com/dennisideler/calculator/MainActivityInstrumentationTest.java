@@ -106,7 +106,7 @@ public class MainActivityInstrumentationTest {
                 .number("0")
                 .number("0")
                 .number("3");
-        onView(withId(R.id.textViewAns)).check(matches(withText("1" + MainActivity.ADD + "3")));
+        onView(withId(R.id.textViewAns)).check(matches(withText("1" + MainActivity.MUL + "3")));
     }
 
 
