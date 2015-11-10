@@ -49,8 +49,12 @@ public class CalculatorOperation {
         return this;
     }
 
-    public CalculatorOperation checkOperationString()
+    public CalculatorOperation checkOperationString(String operationString)
     {
+        if(operationString != null && !operationString.isEmpty())
+        {
+            mOperationString = operationString;
+        }
         CalculatorHelper.getInstance().shouldCalculatorTextEqualsTo(mOperationString);
         return this;
     }
