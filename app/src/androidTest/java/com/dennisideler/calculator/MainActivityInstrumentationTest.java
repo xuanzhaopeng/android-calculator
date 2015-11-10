@@ -14,10 +14,8 @@ import org.junit.runner.RunWith;
 
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.click;
-import static android.support.test.espresso.assertion.ViewAssertions.matches;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
-import static android.support.test.espresso.matcher.ViewMatchers.withText;
-import static junit.framework.Assert.*;
+import static junit.framework.Assert.assertFalse;
 
 /**
  * Created by zxuan on 2015/11/9.
@@ -32,81 +30,98 @@ public class MainActivityInstrumentationTest {
 
 
     @Test
-    public void displayOperandsCorrect() {
-        StringBuilder expectedResult = new StringBuilder();
-        for (int i = 9; i >= 0; i--) {
-            String number = String.valueOf(i);
-            CalculatorHelper.getInstance().number(String.valueOf(i));
-            expectedResult.append(number);
-        }
-        onView(withId(R.id.textViewAns)).check(matches(withText(expectedResult.toString())));
+    public void AllOperandsShouldDisplay() {
+        String expectedResult = "9876543210";
+        CalculatorHelper.getInstance()
+                .number(expectedResult)
+                .shouldCalculatorTextEqualsTo(expectedResult);
     }
 
     @Test
-    public void displayAddOperator() {
-        CalculatorHelper.getInstance().number("1");
-        CalculatorHelper.getInstance().add();
-        onView(withId(R.id.textViewAns)).check(matches(withText("1" + MainActivity.ADD)));
+    public void OperatorAddShouldDisplay() {
+        CalculatorHelper.getInstance()
+                .number("1")
+                .add()
+                .shouldCalculatorTextEqualsTo("1" + MainActivity.ADD);
     }
 
     @Test
-    public void displaySubOperator() {
-        CalculatorHelper.getInstance().number("1");
-        CalculatorHelper.getInstance().sub();
-        onView(withId(R.id.textViewAns)).check(matches(withText("1" + MainActivity.SUB)));
+    public void OperatorSubShouldDisplay() {
+        CalculatorHelper.getInstance()
+                .number("1")
+                .sub()
+                .shouldCalculatorTextEqualsTo("1" + MainActivity.SUB);
     }
 
     @Test
-    public void displayDivOperator() {
-        CalculatorHelper.getInstance().number("1");
-        CalculatorHelper.getInstance().div();
-        onView(withId(R.id.textViewAns)).check(matches(withText("1" + MainActivity.DIV)));
+    public void OperatorDivShouldDisplay() {
+        CalculatorHelper.getInstance()
+                .number("1")
+                .div()
+                .shouldCalculatorTextEqualsTo("1" + MainActivity.DIV);
     }
 
     @Test
-    public void displayMulOperator() {
-        CalculatorHelper.getInstance().number("1");
-        CalculatorHelper.getInstance().mul();
-        onView(withId(R.id.textViewAns)).check(matches(withText("1" + MainActivity.MUL)));
+    public void OperatorMulShouldDisplay() {
+        CalculatorHelper.getInstance()
+                .number("1")
+                .mul()
+                .shouldCalculatorTextEqualsTo("1" + MainActivity.MUL);
     }
 
     @Test
-    public void softKeyboardIsNotDisplayed() {
+    public void SoftKeyboardShouldNotDisplay() {
         onView(withId(R.id.textViewAns)).perform(click());
         InputMethodManager inputMethodManager = (InputMethodManager) mActivityRule.getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
         assertFalse("The keyboard should not be displayed", inputMethodManager.isAcceptingText());
     }
 
     @Test
-    public void typeTwoNumberAndRemoveAllNumbers() {
-        onView(withText("1")).perform(click());
-        onView(withText("2")).perform(click());
-        onView(withId(R.id.buttonDel)).perform(click());
-        onView(withId(R.id.textViewAns)).check(matches(withText("1")));
-        onView(withId(R.id.buttonDel)).perform(click());
-        onView(withId(R.id.textViewAns)).check(matches(withText("")));
-        onView(withId(R.id.buttonDel)).perform(click());
-        onView(withId(R.id.textViewAns)).check(matches(withText("")));
+    public void OperandShouldBeRemoved() {
+        CalculatorHelper.getInstance().number("12")
+                .Delete()
+                .Delete()
+                .shouldCalculatorTextEqualsTo("");
     }
 
     @Test
-    public void typeNumberStartWithZero()
+    public void ZeroAtTheBeginningOfOperandShouldNotDisplay()
     {
-        onView(withText("0")).perform(click());
-        onView(withText("3")).perform(click());
-        onView(withId(R.id.textViewAns)).check(matches(withText("3")));
+        CalculatorHelper.getInstance()
+                .number("03")
+                .shouldCalculatorTextEqualsTo("3");
     }
 
     @Test
-    public void typeNumberStartWithMultipleZero()
+    public void MultipleZeroAtTheBeginningOfOperandShouldNotDisplay()
     {
         CalculatorHelper.getInstance()
                 .number("1")
                 .mul()
-                .number("0")
-                .number("0")
-                .number("3");
-        onView(withId(R.id.textViewAns)).check(matches(withText("1" + MainActivity.MUL + "3")));
+                .number("003")
+                .shouldCalculatorTextEqualsTo("1" + MainActivity.MUL + "3");
+    }
+
+    @Test
+    public void OperatorShouldNotDisplayedStandalone(){
+        CalculatorHelper.getInstance()
+                .mul()
+                .div()
+                .add()
+                .sub()
+                .shouldCalculatorTextEqualsTo("");
+    }
+
+    @Test
+    public void OnlyOneOperatorShouldUsedBetweenTwoOperands()
+    {
+        CalculatorHelper.getInstance()
+                .number("10")
+                .mul()
+                .sub()
+                .number("2")
+                .shouldCalculatorTextEqualsTo("10" + MainActivity.SUB + "2")
+                .shouldCalculatorResultEqualsTo("8");
     }
 
 

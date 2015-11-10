@@ -40,38 +40,44 @@ public class CalculatorHelper {
 
     public CalculatorHelper add()
     {
-        onView(withId(CalculatorHelper.ADD.getOperator())).perform(click());
+        onView(withId(R.id.buttonAdd)).perform(click());
         return this;
     }
 
     public CalculatorHelper div()
     {
-        onView(withId(CalculatorHelper.DIV.getOperator())).perform(click());
+        onView(withId(R.id.buttonDiv)).perform(click());
         return this;
     }
 
     public CalculatorHelper mul()
     {
-        onView(withId(CalculatorHelper.MUL.getOperator())).perform(click());
+        onView(withId(R.id.buttonMul)).perform(click());
         return this;
     }
 
     public CalculatorHelper sub()
     {
-        onView(withId(CalculatorHelper.SUB.getOperator())).perform(click());
+        onView(withId(R.id.buttonSub)).perform(click());
         return this;
     }
 
-    public void shouldEqualsTo(String expectedValue)
+    public CalculatorHelper Delete()
+    {
+        onView(withId(R.id.buttonDel)).perform(click());
+        return this;
+    }
+
+    public CalculatorHelper shouldCalculatorTextEqualsTo(String expectedValue)
+    {
+        onView(withId(R.id.textViewAns)).check(matches(withText(expectedValue)));
+        return this;
+    }
+
+    public void shouldCalculatorResultEqualsTo(String expectedValue)
     {
         onView(withId(R.id.buttonEql)).perform(click());
         onView(withId(R.id.textViewAns)).check(matches(withText(expectedValue)));
-    }
-
-    public void shouldBeError()
-    {
-        onView(withId(R.id.buttonEql)).perform(click());
-        onView(withId(R.id.textViewAns)).check(matches(withText("incorrect format")));
     }
 
     private CalculatorHelper()
