@@ -1,8 +1,8 @@
-package com.dennisideler.calculator.wrapper;
+package com.dennisideler.calculator.lib.wrapper;
 
 import android.widget.Button;
 
-import com.dennisideler.calculator.common.CustomAssert;
+import com.dennisideler.calculator.lib.common.CustomAssert;
 
 /**
  * Created by lenovo on 2015/11/10.

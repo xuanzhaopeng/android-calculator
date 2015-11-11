@@ -1,8 +1,8 @@
-package com.dennisideler.calculator.suite;
+package com.dennisideler.calculator.test;
 
-import com.dennisideler.calculator.MainActivityParameterizedTest;
-import com.dennisideler.calculator.MainActivityInstrumentationTest;
-import com.dennisideler.calculator.MainActivityUnitTest;
+import com.dennisideler.calculator.test.unit.MainActivityParameterizedTest;
+import com.dennisideler.calculator.test.instrumentation.MainActivityInstrumentationTest;
+import com.dennisideler.calculator.test.unit.MainActivityUnitTest;
 
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;

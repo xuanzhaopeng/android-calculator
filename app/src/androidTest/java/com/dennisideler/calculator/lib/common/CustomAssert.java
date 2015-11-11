@@ -1,4 +1,4 @@
-package com.dennisideler.calculator.common;
+package com.dennisideler.calculator.lib.common;
 
 /**
  * Created by lenovo on 2015/11/10.

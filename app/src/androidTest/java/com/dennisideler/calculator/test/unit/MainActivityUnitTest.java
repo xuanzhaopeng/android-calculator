@@ -1,15 +1,16 @@
-package com.dennisideler.calculator;
+package com.dennisideler.calculator.test.unit;
 
 import android.content.Intent;
-import android.content.res.Resources;
 import android.test.ActivityUnitTestCase;
 import android.test.UiThreadTest;
 import android.test.suitebuilder.annotation.MediumTest;
 import android.widget.Button;
+import android.widget.TextView;
 
-import com.dennisideler.calculator.wrapper.ButtonWrapper;
-
-import javax.annotation.Resource;
+import com.dennisideler.calculator.MainActivity;
+import com.dennisideler.calculator.R;
+import com.dennisideler.calculator.lib.wrapper.ButtonWrapper;
+import com.dennisideler.calculator.lib.wrapper.TextViewWrapper;
 
 
 /**
@@ -40,7 +41,7 @@ public class MainActivityUnitTest extends ActivityUnitTestCase<MainActivity> {
 
     @MediumTest
     @UiThreadTest
-    public void testButtonLabel()
+    public void testButtonLabelShows()
     {
         MainActivity activity = startActivity(mLaunchIntent, null,null);
 
@@ -100,6 +101,18 @@ public class MainActivityUnitTest extends ActivityUnitTestCase<MainActivity> {
                 .shouldTextEqualsTo("✕")
                 .shouldBeClickAble();
 
+        ButtonWrapper.Create((Button)activity.findViewById(R.id.buttonEql))
+                .shouldTextEqualsTo("=")
+                .shouldBeClickAble();
+    }
+
+    @MediumTest
+    @UiThreadTest
+    public void testLineLimitationOfTextView()
+    {
+        MainActivity activity = startActivity(mLaunchIntent, null,null);
+        TextViewWrapper.Create((TextView)activity.findViewById(R.id.textViewAns))
+            .shouldMaxLinesEqualTo(1);
     }
 
     @MediumTest
